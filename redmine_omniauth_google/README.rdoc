@@ -1,3 +1,0 @@
-= redmine_omniauth_google
-
-Description goes here
