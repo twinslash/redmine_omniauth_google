@@ -1,8 +1,11 @@
+require 'redmine'
+require_dependency 'redmine_omniauth_google/hooks/view_account_login_bottom_hook'
+
 Redmine::Plugin.register :redmine_omniauth_google do
   name 'Redmine Omniauth Google plugin'
-  author 'Author name'
-  description 'This is a plugin for Redmine'
+  author 'Dmitry Kovalenok'
+  description 'This is a plugin for Redmine registration through google'
   version '0.0.1'
-  url 'http://example.com/path/to/plugin'
-  author_url 'http://example.com/about'
+  url 'http://gitlab.tsdv.net/redmine_omniauth_google'
+  author_url 'https://tsdv.net/redmine/users/105'
 end
