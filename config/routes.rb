@@ -1,2 +1,1 @@
-# Plugin's routes
-# See: http://guides.rubyonrails.org/routing.html
+get 'omniauth_google', to: 'redmine_omniauth#omniauth_google', as: :omniauth_google
