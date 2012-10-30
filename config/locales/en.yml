@@ -1,3 +1,3 @@
 # English strings go here for Rails i18n
 en:
-  my_label: "My label"
+  notice_unable_to_obtain_google_credentials: "Unable to obtain credentials from Google. You have not yet registered."

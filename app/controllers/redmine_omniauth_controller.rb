@@ -16,9 +16,13 @@ class RedmineOmniauthController < AccountController
         # Self-registration off
         redirect_to(home_url) && return unless Setting.self_registration?
         # Create on the fly
-        user.login = info["email"].match(/(.+)@/)[1] unless info["email"].nil?
-        user.mail = info["email"] unless info["email"].nil?
         user.firstname, user.lastname = info["name"].split(' ') unless info['name'].nil?
+        user.firstname ||= info[:given_name]
+        user.lastname ||= info[:family_name]
+        user.mail = info["email"]
+        login = info["email"].match(/(.+)@/) unless info["email"].nil?
+        user.login = login[1] if login
+        user.login ||= [user.firstname, user.lastname]*"."
         user.random_password
         user.register
 
@@ -44,6 +48,9 @@ class RedmineOmniauthController < AccountController
           account_pending
         end
       end
+    else
+      flash[:error] = l(:notice_unable_to_obtain_google_credentials)
+      redirect_to signin_path
     end
   end
 
