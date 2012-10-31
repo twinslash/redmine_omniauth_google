@@ -3,14 +3,12 @@ require 'json'
 
 class RedmineOauthController < AccountController
   def oauth_google
-    ds
     redirect_to oauth_client.auth_code.authorize_url(redirect_uri: oauth_google_callback_url, scope: scopes)
   end
 
   def oauth_google_callback
     token = oauth_client.auth_code.get_token(params[:code], redirect_uri: oauth_google_callback_url)
     result = token.get('https://www.googleapis.com/oauth2/v1/userinfo')
-    binding.pr
     info = JSON.parse(result.body)
     if info && info["verified_email"]
       user = User.find_or_initialize_by_mail(info["email"])

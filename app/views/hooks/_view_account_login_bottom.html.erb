@@ -1,3 +1,3 @@
 <% if Setting.openid? %>
-  <%= link_to image_tag('/plugin_assets/redmine_omniauth_google/images/google_login_icon.jpg'), omniauth_google_path(openid_url: 'google.com') %>
+  <%= link_to image_tag('/plugin_assets/redmine_omniauth_google/images/google_login_icon.jpg'), oauth_google_path %>
 <% end %>
