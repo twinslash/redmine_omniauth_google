@@ -3,7 +3,11 @@ require 'json'
 
 class RedmineOauthController < AccountController
   def oauth_google
-    redirect_to oauth_client.auth_code.authorize_url(redirect_uri: oauth_google_callback_url, scope: scopes)
+    if Setting.openid?
+      redirect_to oauth_client.auth_code.authorize_url(redirect_uri: oauth_google_callback_url, scope: scopes)
+    else
+      password_authentication
+    end
   end
 
   def oauth_google_callback
@@ -20,8 +24,7 @@ class RedmineOauthController < AccountController
         user.firstname ||= info[:given_name]
         user.lastname ||= info[:family_name]
         user.mail = info["email"]
-        login = info["email"].match(/(.+)@/) unless info["email"].nil?
-        user.login = login[1] if login
+        user.login = email_prefix(info["email"])
         user.login ||= [user.firstname, user.lastname]*"."
         user.random_password
         user.register
@@ -52,6 +55,11 @@ class RedmineOauthController < AccountController
       flash[:error] = l(:notice_unable_to_obtain_google_credentials)
       redirect_to signin_path
     end
+  end
+
+  def email_prefix email
+    prefix = email.match(/(.+?)@/) if email
+    prefix[1] if prefix
   end
 
   def oauth_client
