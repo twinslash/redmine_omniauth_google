@@ -5,4 +5,5 @@ gem 'json'
 
 group :development, :test do
   gem 'mailcatcher'
+  gem 'pry'
 end

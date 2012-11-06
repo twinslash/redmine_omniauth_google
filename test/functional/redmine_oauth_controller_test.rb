@@ -1,7 +1,8 @@
 require File.expand_path('../../test_helper', __FILE__)
+#require File.expand_path('../../../lib/helpers/mail_helper', __FILE__)
 
 class RedmineOauthControllerTest < ActionController::TestCase
-
+  include Helpers::MailHelper
   def setup
     @default_user_credentials = { firstname: 'Cool',
                                   lastname: 'User',
@@ -30,13 +31,13 @@ class RedmineOauthControllerTest < ActionController::TestCase
     OAuth2::Response.any_instance.stubs(body: @default_response_body.merge(options).to_json)
   end
 
-  def test_oauth_google_with_disabled_openid
-    Setting.openid = false
+  def test_oauth_google_with_enabled_oauth_authentification
+    Setting.plugin_redmine_omniauth_google[:oauth_authentification] = nil
     get :oauth_google
-    assert_redirected_to signin_path
+    assert_response 404
   end
 
-  def test_oauth_google_callback_with_oauth_for_existing_non_active_user
+  def test_oauth_google_callback_for_existing_non_active_user
     Setting.self_registration = '2'
     user = new_user status: User::STATUS_REGISTERED
     assert user.save
@@ -45,7 +46,7 @@ class RedmineOauthControllerTest < ActionController::TestCase
     assert_redirected_to signin_path
   end
 
-  def test_oauth_google_callback_with_oauth_for_existing_active_user
+  def test_oauth_google_callback_for_existing_active_user
     user = new_user
     user.activate
     assert user.save
@@ -54,7 +55,7 @@ class RedmineOauthControllerTest < ActionController::TestCase
     assert_redirected_to controller: 'my', action: 'page'
   end
 
-  def test_oauth_google_callback_with_omniauth_for_new_user_with_valid_credentials_and_sefregistration_enabled
+  def test_oauth_google_callback_for_new_user_with_valid_credentials_and_sefregistration_enabled
     Setting.self_registration = '3'
     set_response_body_stub
     get :oauth_google_callback
@@ -64,21 +65,38 @@ class RedmineOauthControllerTest < ActionController::TestCase
     assert_equal user.login, email_prefix(@default_response_body[:email])
   end
 
-  def test_oauth_google_callback_with_omniauth_for_new_user_with_valid_credentials_and_sefregistration_disabled
+  def test_oauth_google_callback_for_new_user_with_valid_credentials_and_sefregistration_disabled
     Setting.self_registration = '2'
     set_response_body_stub
     get :oauth_google_callback
     assert_redirected_to signin_path
   end
 
-  def test_oauth_google_callback_with_oauth_for_new_user_with_invalid_oauth_provider
+  def test_oauth_google_callback_with_new_user_with_invalid_oauth_provider
     Setting.self_registration = '3'
     set_response_body_stub verified_email: false
     get :oauth_google_callback
     assert_redirected_to signin_path
   end
 
-  #def test_login_with
+  def test_oauth_google_callback_with_new_user_created_with_email_activation_should_have_a_token
+    Setting.self_registration = '1'
+    set_response_body_stub
+    get :oauth_google_callback
+    assert_redirected_to :signin
+    user = User.find_by_mail(@default_user_credentials[:mail])
+    assert user
+    token = Token.find_by_user_id_and_action(user.id, 'register')
+    assert token
+  end
 
-  #assert existing_user.save!
+  def test_oauth_google_callback_with_new_user_created_with_manual_activation
+      Setting.self_registration = '2'
+      set_response_body_stub
+      get :oauth_google_callback
+      assert_redirected_to :signin
+      user = User.find_by_mail(@default_user_credentials[:mail])
+      assert user
+      assert_equal User::STATUS_REGISTERED, user.status
+  end
 end

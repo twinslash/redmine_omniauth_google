@@ -2,8 +2,9 @@ require 'account_controller'
 require 'json'
 
 class RedmineOauthController < AccountController
+  include Helpers::MailHelper
   def oauth_google
-    if Setting.openid?
+    if Setting.plugin_redmine_omniauth_google[:oauth_authentification]
       redirect_to oauth_client.auth_code.authorize_url(redirect_uri: oauth_google_callback_url, scope: scopes)
     else
       password_authentication
@@ -55,11 +56,6 @@ class RedmineOauthController < AccountController
       flash[:error] = l(:notice_unable_to_obtain_google_credentials)
       redirect_to signin_path
     end
-  end
-
-  def email_prefix email
-    prefix = email.match(/(.+?)@/) if email
-    prefix[1] if prefix
   end
 
   def oauth_client
