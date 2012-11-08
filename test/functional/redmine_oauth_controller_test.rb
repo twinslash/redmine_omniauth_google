@@ -1,5 +1,4 @@
 require File.expand_path('../../test_helper', __FILE__)
-#require File.expand_path('../../../lib/helpers/mail_helper', __FILE__)
 
 class RedmineOauthControllerTest < ActionController::TestCase
   include Helpers::MailHelper
