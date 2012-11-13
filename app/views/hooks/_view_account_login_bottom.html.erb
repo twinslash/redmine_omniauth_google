@@ -4,7 +4,7 @@
   <%= link_to oauth_google_path do %>
     <%= button_tag class: 'button-login' do %>
       <%= image_tag('/plugin_assets/redmine_omniauth_google/images/google_login_icon.jpg', class: 'button-login-icon', alt: l(:login_via_google)) %>
-      <%= content_tag :div, 'Login_via_google', class: 'button-login-text' %>
+      <%= content_tag :div, l(:login_via_google), class: 'button-login-text' %>
     <% end %>
   <% end %>
 <% end %>

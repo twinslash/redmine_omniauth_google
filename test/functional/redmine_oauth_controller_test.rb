@@ -90,12 +90,27 @@ class RedmineOauthControllerTest < ActionController::TestCase
   end
 
   def test_oauth_google_callback_with_new_user_created_with_manual_activation
-      Setting.self_registration = '2'
-      set_response_body_stub
-      get :oauth_google_callback
-      assert_redirected_to :signin
-      user = User.find_by_mail(@default_user_credentials[:mail])
-      assert user
-      assert_equal User::STATUS_REGISTERED, user.status
+    Setting.self_registration = '2'
+    set_response_body_stub
+    get :oauth_google_callback
+    assert_redirected_to :signin
+    user = User.find_by_mail(@default_user_credentials[:mail])
+    assert user
+    assert_equal User::STATUS_REGISTERED, user.status
+  end
+
+  def test_oauth_google_callback_with_not_allowed_email_domain
+    Setting.plugin_redmine_omniauth_google[:allowed_domains] = "twinslash.com"
+    set_response_body_stub
+    get :oauth_google_callback
+    assert_redirected_to :signin  
+  end
+
+  def test_oauth_google_callback_with_allowed_email_domain
+    Setting.self_registration = '3'
+    Setting.plugin_redmine_omniauth_google[:allowed_domains] = parse_email(@default_response_body[:email])[:domain]
+    set_response_body_stub
+    get :oauth_google_callback
+    assert_redirected_to controller: 'my', action: 'account'
   end
 end
