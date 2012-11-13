@@ -61,7 +61,7 @@ class RedmineOauthControllerTest < ActionController::TestCase
     assert_redirected_to controller: 'my', action: 'account'
     user = User.find_by_mail(@default_response_body[:email])
     assert_equal user.mail, @default_response_body[:email]
-    assert_equal user.login, email_prefix(@default_response_body[:email])
+    assert_equal user.login, parse_email(@default_response_body[:email])[:login]
   end
 
   def test_oauth_google_callback_for_new_user_with_valid_credentials_and_sefregistration_disabled

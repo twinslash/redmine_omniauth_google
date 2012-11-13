@@ -1,3 +1,5 @@
 # English strings go here for Rails i18n
 en:
-  notice_unable_to_obtain_google_credentials: "Unable to obtain credentials from Google. You have not yet registered."
+  notice_unable_to_obtain_google_credentials: "Unable to obtain credentials from Google."
+  notice_domain_not_allowed: "You can not login using %{domain} domain."
+  login_via_google: "Login via Google"

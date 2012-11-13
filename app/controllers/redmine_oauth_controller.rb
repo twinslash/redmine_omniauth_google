@@ -3,6 +3,7 @@ require 'json'
 
 class RedmineOauthController < AccountController
   include Helpers::MailHelper
+  include Helpers::Checker
   def oauth_google
     if Setting.plugin_redmine_omniauth_google[:oauth_authentification]
       redirect_to oauth_client.auth_code.authorize_url(redirect_uri: oauth_google_callback_url, scope: scopes)
@@ -16,45 +17,54 @@ class RedmineOauthController < AccountController
     result = token.get('https://www.googleapis.com/oauth2/v1/userinfo')
     info = JSON.parse(result.body)
     if info && info["verified_email"]
-      user = User.find_or_initialize_by_mail(info["email"])
-      if user.new_record?
-        # Self-registration off
-        redirect_to(home_url) && return unless Setting.self_registration?
-        # Create on the fly
-        user.firstname, user.lastname = info["name"].split(' ') unless info['name'].nil?
-        user.firstname ||= info[:given_name]
-        user.lastname ||= info[:family_name]
-        user.mail = info["email"]
-        user.login = email_prefix(info["email"])
-        user.login ||= [user.firstname, user.lastname]*"."
-        user.random_password
-        user.register
-
-        case Setting.self_registration
-        when '1'
-          register_by_email_activation(user) do
-            onthefly_creation_failed(user)
-          end
-        when '3'
-          register_automatically(user) do
-            onthefly_creation_failed(user)
-          end
-        else
-          register_manually_by_administrator(user) do
-            onthefly_creation_failed(user)
-          end
-        end
+      if allowed_domain_for?(info["email"])
+        try_to_login info
       else
-        # Existing record
-        if user.active?
-          successful_authentication(user)
-        else
-          account_pending
-        end
+        flash[:error] = l(:notice_domain_not_allowed, domain: parse_email(info["email"])[:domain])
+        redirect_to signin_path
       end
     else
       flash[:error] = l(:notice_unable_to_obtain_google_credentials)
       redirect_to signin_path
+    end
+  end
+
+  def try_to_login info
+   user = User.find_or_initialize_by_mail(info["email"])
+    if user.new_record?
+      # Self-registration off
+      redirect_to(home_url) && return unless Setting.self_registration?
+      # Create on the fly
+      user.firstname, user.lastname = info["name"].split(' ') unless info['name'].nil?
+      user.firstname ||= info[:given_name]
+      user.lastname ||= info[:family_name]
+      user.mail = info["email"]
+      user.login = parse_email(info["email"])[:login]
+      user.login ||= [user.firstname, user.lastname]*"."
+      user.random_password
+      user.register
+
+      case Setting.self_registration
+      when '1'
+        register_by_email_activation(user) do
+          onthefly_creation_failed(user)
+        end
+      when '3'
+        register_automatically(user) do
+          onthefly_creation_failed(user)
+        end
+      else
+        register_manually_by_administrator(user) do
+          onthefly_creation_failed(user)
+        end
+      end
+    else
+      # Existing record
+      if user.active?
+        successful_authentication(user)
+      else
+        account_pending
+      end
     end
   end
 

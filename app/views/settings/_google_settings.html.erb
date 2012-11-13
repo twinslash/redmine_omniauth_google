@@ -7,6 +7,10 @@
   <%= text_field_tag 'settings[client_secret]', @settings[:client_secret] %>
 </p>
 <p>
+  <label>Available domains</label>
+  <%= text_area_tag "settings[allowed_domains]", @settings[:allowed_domains], rows: 5 %>
+</p>
+<p>
   <label>Oauth authentification:</label>
   <%= check_box_tag "settings[oauth_authentification]", true, @settings[:oauth_authentification] %>
 </p>
