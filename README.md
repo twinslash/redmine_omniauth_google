@@ -4,7 +4,13 @@ This plugin is used to authenticate in redmine through Google.
 
 ### Installation:
 
-Choose folder /plugins, make command git clone git@gitlab.tsdv.net:redmine_omniauth_google.git. Restart rails server.
+Choose folder /plugins, make command 
+
+```console
+git clone git@gitlab.tsdv.net:redmine_omniauth_google.git. 
+```
+
+Restart rails server.
 
 ### Registration
 
