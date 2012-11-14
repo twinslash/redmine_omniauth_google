@@ -27,6 +27,8 @@ The registrations is complete.
 
 ### Configuration
 
+To make plugin to work properly
+
 * Login as administrator. In top menu select "Administration". Choose menu item Plugins. In plugins list choose "Redmine Omniauth Google plugin". Press "Configure". 
 * Fill Сlient ID & Client Secret by corresponding values, obtained by Google. 
 * Put the check "Oauth authentification", to make it possible to login through Google. Click Apply. Users can now to use apportunity to login via Google.
@@ -36,8 +38,10 @@ The registrations is complete.
 By default, all domains are allowed to authenticate through Google.
 To limit login through Google for other domains you have to fill allowed domains in the text box field the "Allowed domains". Domains must be separated by newlines. For example:
 
-  onedomain.com 
-  otherdomain.com
+```text
+onedomain.com 
+otherdomain.com
+```
 
 ### Work process
 
