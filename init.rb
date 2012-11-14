@@ -9,8 +9,8 @@ Redmine::Plugin.register :redmine_omniauth_google do
   url 'http://gitlab.tsdv.net/redmine_omniauth_google'
   author_url 'https://tsdv.net/redmine/users/105'
   settings default: {
-    client_id: '214698823792.apps.googleusercontent.com',
-    client_secret: 'M0HJPMypEgrDAKKHGiP6Y2R-',
+    client_id: "",
+    client_secret: "",
     oauth_autentification: false,
     allowed_domains: ""
   }, partial: 'settings/google_settings'
