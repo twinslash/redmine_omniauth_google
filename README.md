@@ -7,7 +7,7 @@ This plugin is used to authenticate in redmine through Google.
 Choose folder /plugins, make command 
 
 ```console
-git clone git@gitlab.tsdv.net:redmine_omniauth_google.git. 
+git clone git@gitlab.tsdv.net:redmine_omniauth_google.git
 ```
 
 Restart rails server.
@@ -20,7 +20,7 @@ To make possible to authenticate via Google you must first to register applicati
 * Press "API Access" in left menu bar.
 * Click the button "Create an OAuth 2.0 client ID".
 * When registering specify application name, for example, Redmine Oauth Google.
-* In section "Your site or hostname" choose mode http, in the text input box enter your domain, for example, yourdomain.com. 
+* In section "Your site or hostname" choose mode http, in the text input box enter your domain. For example: www.example.com or localhost
 * Press the button "Create client ID".
 
 The registrations is complete.
@@ -31,10 +31,13 @@ The registrations is complete.
 * Fill Сlient ID & Client Secret by corresponding values, obtained by Google. 
 * Put the check "Oauth authentification", to make it possible to login through Google. Click Apply. Users can now to use apportunity to login via Google.
 
+### Other options
+
+By default, all domains are allowed to authenticate through Google.
 To limit login through Google for other domains you have to fill allowed domains in the text box field the "Allowed domains". Domains must be separated by newlines. For example:
 
-onedomain.com
-otherdomain.com
+  onedomain.com 
+  otherdomain.com
 
 ### Work process
 
