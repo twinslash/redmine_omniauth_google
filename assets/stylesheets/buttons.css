@@ -12,7 +12,8 @@
 
 .button-login-icon {
   float: left;
-  height: 25px;
+  height: 18px;
+  padding: 1px 0px 0px 4px;
 }
 
 .button-login-text {
