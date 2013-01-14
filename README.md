@@ -10,7 +10,7 @@ Choose folder /plugins, make command
 git clone https://github.com/twinslash/redmine_omniauth_google.git
 ```
 
-Restart rails server.
+Update gems and restart rails server.
 
 ### Registration
 
