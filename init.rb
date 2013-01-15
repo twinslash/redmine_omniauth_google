@@ -9,10 +9,10 @@ Redmine::Plugin.register :redmine_omniauth_google do
   url 'https://github.com/twinslash/redmine_omniauth_google'
   author_url 'http://twinslash.com'
 
-  settings default: {
-    client_id: "",
-    client_secret: "",
-    oauth_autentification: false,
-    allowed_domains: ""
-  }, partial: 'settings/google_settings'
+  settings :default => {
+    :client_id => "",
+    :client_secret => "",
+    :oauth_autentification => false,
+    :allowed_domains => ""
+  }, :partial => 'settings/google_settings'
 end
