@@ -1,5 +1,5 @@
 require 'redmine'
-require_dependency 'hooks/view_account_login_bottom_hook'
+require_dependency 'redmine_omniauth_google/hooks'
 
 Redmine::Plugin.register :redmine_omniauth_google do
   name 'Redmine Omniauth Google plugin'
