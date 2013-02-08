@@ -6,6 +6,7 @@ class RedmineOauthController < AccountController
   include Helpers::Checker
   def oauth_google
     if Setting.plugin_redmine_omniauth_google[:oauth_authentification]
+      session[:back_url] = params[:back_url]
       redirect_to oauth_client.auth_code.authorize_url(:redirect_uri => oauth_google_callback_url, :scope => scopes)
     else
       password_authentication
@@ -30,6 +31,8 @@ class RedmineOauthController < AccountController
   end
 
   def try_to_login info
+   params[:back_url] = session[:back_url]
+   session.delete(:back_url)
    user = User.find_or_initialize_by_mail(info["email"])
     if user.new_record?
       # Self-registration off
