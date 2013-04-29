@@ -1,4 +1,5 @@
 ru:
   notice_unable_to_obtain_google_credentials: "Не удалось получить данные от Google."
   notice_domain_not_allowed: "Вы не можете войти в систему при помощи домена %{domain}."
+  notice_access_denied: "Для корректного входа необходимо разрешить приложению доступ к аккаунту."
   login_via_google: "Войти с Google"

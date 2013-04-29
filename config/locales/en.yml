@@ -1,4 +1,5 @@
 en:
   notice_unable_to_obtain_google_credentials: "Unable to obtain credentials from Google."
   notice_domain_not_allowed: "You can not login using %{domain} domain."
+  notice_access_denied: "You must allow to use you Google credentials to enter this site."
   login_via_google: "Login via Google"

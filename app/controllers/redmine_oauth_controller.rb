@@ -14,19 +14,24 @@ class RedmineOauthController < AccountController
   end
 
   def oauth_google_callback
-    token = oauth_client.auth_code.get_token(params[:code], :redirect_uri => oauth_google_callback_url)
-    result = token.get('https://www.googleapis.com/oauth2/v1/userinfo')
-    info = JSON.parse(result.body)
-    if info && info["verified_email"]
-      if allowed_domain_for?(info["email"])
-        try_to_login info
+    if params[:error]
+      flash[:error] = l(:notice_access_denied)
+      redirect_to signin_path
+    else
+      token = oauth_client.auth_code.get_token(params[:code], :redirect_uri => oauth_google_callback_url)
+      result = token.get('https://www.googleapis.com/oauth2/v1/userinfo')
+      info = JSON.parse(result.body)
+      if info && info["verified_email"]
+        if allowed_domain_for?(info["email"])
+          try_to_login info
+        else
+          flash[:error] = l(:notice_domain_not_allowed, :domain => parse_email(info["email"])[:domain])
+          redirect_to signin_path
+        end
       else
-        flash[:error] = l(:notice_domain_not_allowed, :domain => parse_email(info["email"])[:domain])
+        flash[:error] = l(:notice_unable_to_obtain_google_credentials)
         redirect_to signin_path
       end
-    else
-      flash[:error] = l(:notice_unable_to_obtain_google_credentials)
-      redirect_to signin_path
     end
   end
 
