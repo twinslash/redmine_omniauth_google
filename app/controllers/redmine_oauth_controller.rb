@@ -41,7 +41,7 @@ class RedmineOauthController < AccountController
    user = User.find_or_initialize_by_mail(info["email"])
     if user.new_record?
       # Self-registration off
-      redirect_to(home_url) && return unless Setting.self_registration?
+      redirect_to(home_url) && return unless Setting.self_registration? || settings[:ignore_self_registration]
       # Create on the fly
       user.firstname, user.lastname = info["name"].split(' ') unless info['name'].nil?
       user.firstname ||= info[:given_name]
