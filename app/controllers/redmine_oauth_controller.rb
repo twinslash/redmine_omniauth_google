@@ -71,7 +71,7 @@ class RedmineOauthController < AccountController
       if user.active?
         successful_authentication(user)
       else
-        account_pending
+        account_pending(user)
       end
     end
   end
