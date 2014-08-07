@@ -71,7 +71,13 @@ class RedmineOauthController < AccountController
       if user.active?
         successful_authentication(user)
       else
-        account_pending
+        # Redmine 2.4 adds an argument to account_pending
+        if Redmine::VERSION::MAJOR > 2 or
+          (Redmine::VERSION::MAJOR == 2 and Redmine::VERSION::MINOR >= 4)
+          account_pending(user)
+        else
+          account_pending
+        end
       end
     end
   end
