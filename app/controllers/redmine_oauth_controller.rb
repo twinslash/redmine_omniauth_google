@@ -1,5 +1,6 @@
 require 'account_controller'
 require 'json'
+require 'oauth2'
 
 class RedmineOauthController < AccountController
   include Helpers::MailHelper
