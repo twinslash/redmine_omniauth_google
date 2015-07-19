@@ -47,7 +47,7 @@ class RedmineOauthController < AccountController
       user.firstname ||= info[:given_name]
       user.lastname ||= info[:family_name]
       user.mail = info["email"]
-      user.login = parse_email(info["email"])[:login]
+      user.login = info["email"]
       user.login ||= [user.firstname, user.lastname]*"."
       user.random_password
       user.register
