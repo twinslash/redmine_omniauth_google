@@ -5,7 +5,7 @@ class RedmineOauthController < AccountController
   include Helpers::MailHelper
   include Helpers::Checker
   def oauth_google
-    if Setting.plugin_redmine_omniauth_google[:oauth_authentification]
+    if Setting.plugin_redmine_omniauth_google['oauth_authentification']
       session[:back_url] = params[:back_url]
       redirect_to oauth_client.auth_code.authorize_url(:redirect_uri => oauth_google_callback_url, :scope => scopes)
     else
@@ -83,7 +83,7 @@ class RedmineOauthController < AccountController
   end
 
   def oauth_client
-    @client ||= OAuth2::Client.new(settings[:client_id], settings[:client_secret],
+    @client ||= OAuth2::Client.new(settings['client_id'], settings['client_secret'],
       :site => 'https://accounts.google.com',
       :authorize_url => '/o/oauth2/auth',
       :token_url => '/o/oauth2/token')
