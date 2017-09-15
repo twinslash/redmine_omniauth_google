@@ -1,6 +1,6 @@
 <%= stylesheet_link_tag 'buttons', :plugin => 'redmine_omniauth_google' %>
 
-<% if Setting.plugin_redmine_omniauth_google[:oauth_authentification] %>
+<% if Setting.plugin_redmine_omniauth_google['oauth_authentification'] %>
   <%= link_to oauth_google_path(:back_url => back_url) do %>
     <%= button_tag :class => 'button-login' do %>
       <%= image_tag('/plugin_assets/redmine_omniauth_google/images/google_login_icon.png', :class => 'button-login-icon', :alt => l(:login_via_google)) %>

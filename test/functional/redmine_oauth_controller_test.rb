@@ -31,7 +31,7 @@ class RedmineOauthControllerTest < ActionController::TestCase
   end
 
   def test_oauth_google_with_enabled_oauth_authentification
-    Setting.plugin_redmine_omniauth_google[:oauth_authentification] = nil
+    Setting.plugin_redmine_omniauth_google['oauth_authentification'] = nil
     get :oauth_google
     assert_response 404
   end
@@ -100,7 +100,7 @@ class RedmineOauthControllerTest < ActionController::TestCase
   end
 
   def test_oauth_google_callback_with_not_allowed_email_domain
-    Setting.plugin_redmine_omniauth_google[:allowed_domains] = "twinslash.com"
+    Setting.plugin_redmine_omniauth_google['allowed_domains'] = "twinslash.com"
     set_response_body_stub
     get :oauth_google_callback
     assert_redirected_to :signin
@@ -108,7 +108,7 @@ class RedmineOauthControllerTest < ActionController::TestCase
 
   def test_oauth_google_callback_with_allowed_email_domain
     Setting.self_registration = '3'
-    Setting.plugin_redmine_omniauth_google[:allowed_domains] = parse_email(@default_response_body[:email])[:domain]
+    Setting.plugin_redmine_omniauth_google['allowed_domains'] = parse_email(@default_response_body[:email])[:domain]
     set_response_body_stub
     get :oauth_google_callback
     assert_redirected_to :controller => 'my', :action => 'account'
