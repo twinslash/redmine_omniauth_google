@@ -1,11 +1,11 @@
 .button-login {
   position: relative;
-  left: 45%;
+  left: 42.5%;
   display: inline-block;
   border: 1px solid #999;
   border-radius: 2px;
   margin-top: 10px;
-  width: 135px;
+  width: 200px;
   height: 25px;
   padding: 0;
 }
@@ -13,11 +13,10 @@
 .button-login-icon {
   float: left;
   height: 18px;
-  padding: 1px 0px 0px 4px;
+  padding: 1px 0px 0px 6px;
 }
 
 .button-login-text {
   line-height: 21px;
-  background-image: -webkit-linear-gradient(bottom, #ddd, white);
   font-size: 12px;
 }
