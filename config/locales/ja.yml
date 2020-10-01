@@ -1,9 +1,9 @@
-en:
+ja:
   notice_unable_to_obtain_google_credentials: "Unable to obtain credentials from Google."
   notice_domain_not_allowed: "You can not login using %{domain} domain."
   notice_access_denied: "You must allow to use you Google credentials to enter this site."
-  login_via_google: "Login via Google"
-  client_id: "Client ID:"
-  client_secret: "Client Secret:"
-  available_domains: "Available domains:"
-  oauth_authentification: "Oauth authentification:"
+  login_via_google: "Googleアカウントでログイン"
+  client_id: "クライアントID:"
+  client_secret: "クライアント シークレット:"
+  available_domains: "認証するドメイン名:"
+  oauth_authentification: "Oauth認証:"

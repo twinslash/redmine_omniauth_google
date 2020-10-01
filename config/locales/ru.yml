@@ -3,3 +3,7 @@ ru:
   notice_domain_not_allowed: "Вы не можете войти в систему при помощи домена %{domain}."
   notice_access_denied: "Для корректного входа необходимо разрешить приложению доступ к аккаунту."
   login_via_google: "Войти с Google"
+  client_id: "Client ID:"
+  client_secret: "Client Secret:"
+  available_domains: "Available domains:"
+  oauth_authentification: "Oauth authentification:"
