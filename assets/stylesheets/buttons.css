@@ -1,5 +1,15 @@
-.button-login {
-  position: relative;
+a button.button-login {
+  background: #FF5757; /* var(--color-red); */
+  color: #fff; /*var(--color-fff); */
+  font-weight: bold;
+  width: 100%;
+  border: 0px;
+  padding: 10px 5px;
+  height: auto;
+  border-radius: 8px;
+  line-height:24px;
+  margin:30px 0px;
+  /*position: relative;
   left: 45%;
   display: inline-block;
   border: 1px solid #999;
@@ -7,17 +17,22 @@
   margin-top: 10px;
   width: 135px;
   height: 25px;
-  padding: 0;
+  padding: 0;*/
+
+}
+a button.button-login:hover{
+  background: #fdcccc; /* var(--color-red-superlight) */
+  color: #FF5757; /* var(--color-red) */
 }
 
 .button-login-icon {
   float: left;
-  height: 18px;
+  max-height: 24px;
   padding: 1px 0px 0px 4px;
 }
 
 .button-login-text {
-  line-height: 21px;
+  /*line-height: 21px;
   background-image: -webkit-linear-gradient(bottom, #ddd, white);
-  font-size: 12px;
+  font-size: 12px; */
 }

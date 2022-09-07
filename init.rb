@@ -1,5 +1,5 @@
 require 'redmine'
-require_dependency 'redmine_omniauth_google/hooks'
+require_dependency File.dirname(__FILE__) + '/lib/redmine_omniauth_google/hooks'
 
 Redmine::Plugin.register :redmine_omniauth_google do
   name 'Redmine Omniauth Google plugin'
