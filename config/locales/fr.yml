@@ -1,0 +1,5 @@
+fr:
+  notice_unable_to_obtain_google_credentials: "Impossible d'obtenir les informations d'identification de Google."
+  notice_domain_not_allowed: "Vous ne pouvez pas vous connecter en utilisant le domaine %{domain}."
+  notice_access_denied: "Vous devez autoriser l'utilisation de vos informations d'identification Google pour accéder à ce site"
+  login_via_google: "Se connecter avec Google"
