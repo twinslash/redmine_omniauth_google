@@ -1,23 +1,49 @@
+.container-link-google{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
 .button-login {
-  position: relative;
-  left: 45%;
+  margin: 0 auto;
   display: inline-block;
-  border: 1px solid #999;
-  border-radius: 2px;
-  margin-top: 10px;
-  width: 135px;
+  background: white;
+  color: #444;
+  width: 250px;
+  border-radius: 5px;
+  border: thin solid #888;
+  box-shadow: none;
+  padding-left: 8px;
+  padding-right: 8px;
+  text-align: left;
+}
+
+.button-login:hover,
+.button-login:active,
+.button-login:focus-within,
+.button-login:focus {
+  cursor: pointer;
+  background-color: white;
+  color: #000000;
+  border: thin solid #888;
+  box-shadow: 1px 1px 1px grey;
+}
+
+
+.button-login span.label {
+  font-family: serif;
+  font-weight: normal;
+}
+.button-login span.icon {
+  background: url('../images/btn_google_light_normal_ios.svg') transparent 50% no-repeat;
+  display: inline-block;
+  vertical-align: middle;
+  width: 25px;
   height: 25px;
-  padding: 0;
+  margin-right: 10px;
 }
-
-.button-login-icon {
-  float: left;
-  height: 18px;
-  padding: 1px 0px 0px 4px;
-}
-
-.button-login-text {
-  line-height: 21px;
-  background-image: -webkit-linear-gradient(bottom, #ddd, white);
-  font-size: 12px;
+.button-login span.button-text {
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 14px;
+  font-weight: bold;
 }
