@@ -1,4 +1,3 @@
-require 'account_controller'
 require 'json'
 
 class RedmineOauthController < AccountController
